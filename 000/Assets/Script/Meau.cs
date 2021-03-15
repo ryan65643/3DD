@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
+
 
 public class Meau : MonoBehaviour
 {
@@ -9,26 +11,30 @@ public class Meau : MonoBehaviour
     public GameObject Mea;
     public GameObject Judgmentarea;
     public GameObject[] Gam;
+    public Transform[] Gams;
     [Header("生成點")]
     public GameObject BronProp;
     [Header("間隔時間"), Range(0f, 10f)]
-    public float bye = 10f;
+    public float bye ;
     public CanvasGroup CanSkill;
     public CanvasGroup CanBackpage;
     public CanvasGroup CanMeau;
-    public Transform Prop;
+    public GameObject Prop;
     private float Speed = 10;
-    private bool a;
+    private float cc;
+    private bool StarGame =false;
+    // private bool ATKT;
 
     private void Start()
     {
-        a = true;
+        // ATKT = true;
         Judgmentarea.SetActive(false);
-        InvokeRepeating("born", 0, bye);
     }
     private void Update()
     {
+        a();
         OpenCkeck();
+
     }
     private void Awake()
     {
@@ -41,6 +47,7 @@ public class Meau : MonoBehaviour
         CanMeau = GameObject.Find("介面層").GetComponent<CanvasGroup>();
         BronProp = GameObject.Find("生成區域");
         Gam = Resources.LoadAll<GameObject>("");
+        Gams = Resources.LoadAll<Transform>("");
 
 
     }
@@ -105,33 +112,64 @@ public class Meau : MonoBehaviour
     /// </summary>
     private void born()
     {
+        bye = Random.Range(1f, 5000f);
         int r = Random.Range(0, Gam.Length);
         Transform point = BronProp.transform;
-        if (a)
-        {
-            GameObject temp = Instantiate(Gam[r], point.position, point.rotation).gameObject;
-        }
+        Prop = Instantiate(Gam[r], point.position, point.rotation).gameObject;
+        InvokeRepeating("born", 1, bye);
+        //cc = Gams.transform.position.x - Judgmentarea.transform.position.x;
+        cc = Vector3.Distance(Prop.transform.position, BronProp.transform.position);
+        print(cc);
+
+       
 
     }
+
+ 
     private void OpenCkeck()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+
+
+        if (Input.GetKeyDown(KeyCode.DownArrow)&&cc<=1)
         {
+        print("goo");
             Judgmentarea.SetActive(true);
             che();
         }
         else Judgmentarea.SetActive(false);
-
     }
 
     private void che()
     {
-        RaycastHit2D Hit = Physics2D.Raycast(transform.position, Vector2.left, 1 << 8);
-        if (Hit && Hit.transform.name == "判斷區域")
+        if (cc == 0)
         {
-            print("123");
+            print("Perfect");
+
+        }
+        else if (cc <= 1 && cc != 0)
+        {
+            print("GOOD");
+        }
+        else if (cc < -0.5f && cc != 0)
+        {
+            print("BAD");
         }
     }
 
+    public void stargame()
+    {
+        born();
+    }
+    //private void Perfert()
+    //{
 
+    // }
+
+    public void restgame()
+    { SceneManager.LoadScene("遊戲場景"); }
+
+    public void quit()
+    {
+        Application.Quit();
+    }
 }

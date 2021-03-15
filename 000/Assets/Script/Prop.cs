@@ -8,7 +8,7 @@ public class Prop : MonoBehaviour
     public float Length90 = 0.02f;
     [Header("糟糕條的長度")]
     public float Length180 = -0.378f;
-    private float Speed = 10;
+    private float Speed = 1;
     private bool Born;
     private void Start()
     {
