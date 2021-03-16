@@ -26,7 +26,9 @@ public class Player : MonoBehaviour
     public float Atk = 15;
     public GameObject Talk;
     public GameObject MeauDead;
+    public GameObject Meau;
     public CanvasGroup CanDead;
+    public GameObject BronPropD;
 
     private void Start()
     {
@@ -43,9 +45,12 @@ public class Player : MonoBehaviour
         EXPT = GameObject.Find("經驗值").GetComponent<Text>();
         LVT = GameObject.Find("等級").GetComponent<Text>();
         MeauDead = GameObject.Find("結束畫面");
+        Meau = GameObject.Find("場景控制器");
         CanDead = GameObject.Find("結束畫面").GetComponent<CanvasGroup>();
         Talk = GameObject.Find("對話框");
         LVT.text = LV.ToString("LV: "+LV);
+        BronPropD = GameObject.Find("判斷區域底層");
+
         HP = Hpmax;
         MP = Mpmax;
 
@@ -124,8 +129,10 @@ public class Player : MonoBehaviour
     private IEnumerator DelayTalk()
     {
         Talk.SetActive(true);
+        BronPropD.SetActive(false);
         yield return new WaitForSeconds(1);
         Talk.SetActive(false);
+        BronPropD.SetActive(true);
     }
 
 }

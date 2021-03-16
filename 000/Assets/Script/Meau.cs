@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 
@@ -16,32 +17,46 @@ public class Meau : MonoBehaviour
     public Transform[] Gams;
     [Header("生成點")]
     public GameObject BronProp;
+    public GameObject BronPropD;
     [Header("間隔時間"), Range(0f, 10f)]
-    public float bye ;
+    public float bye;
     public CanvasGroup CanSkill;
     public CanvasGroup CanBackpage;
     public CanvasGroup CanMeau;
     public GameObject Prop;
     private float Speed = 10;
     private float cc;
-    private bool StarGame =false;
-    private bool S =false; 
-    private GameObject Player; 
-    private GameObject Enemy; 
-    // private bool ATKT;
+    private bool StarGame = false;
+    private bool S = false;
+    private GameObject Player;
+    private GameObject Enemy;
+    private bool ATKT = false;
+    private bool ATKTs = false;
+    private bool ASCAL = false;
+    public GameObject Per;
+    public GameObject GOOD;
+    public GameObject BAD;
+    public List<GameObject> Arrows;
 
     private void Start()
     {
-        Judgmentarea.SetActive(false); 
+        Judgmentarea.SetActive(false);
+        Per.SetActive(false);
+        GOOD.SetActive(false);
+        BAD.SetActive(false);
+        BronPropD.SetActive(false);
+
     }
     private void Update()
     {
         OpenCkeck();
-        
+        CAl();
+        Egame();
     }
     private void Awake()
     {
         Judgmentarea = GameObject.Find("判斷區域");
+        BronPropD = GameObject.Find("判斷區域底層");
         Player = GameObject.Find("Piayer");
         Skill = GameObject.Find("技能層");
         Backpage = GameObject.Find("背包層");
@@ -54,7 +69,10 @@ public class Meau : MonoBehaviour
         CA = Resources.Load<GameObject>("上");
         Gams = Resources.LoadAll<Transform>("");
         Enemy = GameObject.Find("Enemy");
-        Ju =Judgmentarea.GetComponent<Transform>();
+        Ju = Judgmentarea.GetComponent<Transform>();
+        Per = GameObject.Find("Perfect");
+        GOOD = GameObject.Find("Good");
+        BAD = GameObject.Find("BAD");
 
 
 
@@ -120,38 +138,42 @@ public class Meau : MonoBehaviour
     /// </summary>
     private void born()
     {
-        Player.GetComponent<Player>().Perfect(Enemy.GetComponent<Enemy>().Atk);
-        Player.GetComponent<Player>().GetLv(Enemy.GetComponent<Enemy>().Exp);
-
-        //  Enemy.GetComponent<Enemy>().Good(Enemy.GetComponent<Player>().Atk);
-        bye = Random.Range(1f, 5000f);
+        BronPropD.SetActive(true);
+        bye = Random.Range(1f, 3f);
         int r = Random.Range(0, Gam.Length);
         Transform point = BronProp.transform;
         Prop = Instantiate(Gam[r], point.position, point.rotation).gameObject;
-        InvokeRepeating("born", 1, bye);
-        
-        S = true;
-        if (S)
-        {
-            CA.GetComponent<Prop>().Cal();
-            print(cc);
-
-        }
-
-       
+        Arrows.Add(Prop);
+        ASCAL = true;
 
     }
 
+    private void CAl()
+    {
+        if (ASCAL)
+        {
 
+            cc = Arrows[0].transform.position.x - Judgmentarea.transform.position.x;
+            print(cc);
+        }
+
+    }
 
 
     private void OpenCkeck()
     {
 
+        if (cc <= -0.35f && cc != 0)
+        {
+            StartCoroutine(DelayBAD());
+            Player.GetComponent<Player>().Bad(Enemy.GetComponent<Enemy>().Atk);
+            Enemy.GetComponent<Enemy>().Bad(Player.GetComponent<Player>().Atk);
+            Destroy(Arrows[0]);
+            Arrows.RemoveAt(0);
 
+        }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-        print("goo");
             Judgmentarea.SetActive(true);
             che();
         }
@@ -162,33 +184,45 @@ public class Meau : MonoBehaviour
     {
         if (cc == 0)
         {
+            StartCoroutine(DelayPer());
             Player.GetComponent<Player>().Perfect(Enemy.GetComponent<Enemy>().Atk);
-            Enemy.GetComponent<Enemy>().Perfect(Enemy.GetComponent<Player>().Atk);
+            Enemy.GetComponent<Enemy>().Perfect(Player.GetComponent<Player>().Atk);
+            Destroy(Arrows[0]);
+            Arrows.RemoveAt(0);
 
 
         }
-        else if (cc <= 1 && cc != 0)
+        else if (cc <= 0.35 && cc > 0)
         {
+            StartCoroutine(DelayGOOD());
             Player.GetComponent<Player>().Good(Enemy.GetComponent<Enemy>().Atk);
-            Enemy.GetComponent<Enemy>().Good(Enemy.GetComponent<Player>().Atk);
+            Enemy.GetComponent<Enemy>().Good(Player.GetComponent<Player>().Atk);
+            Destroy(Arrows[0]);
+            Arrows.RemoveAt(0);
+
 
         }
-        else if (cc < -0.5f && cc != 0)
-        {
-            Player.GetComponent<Player>().Bad(Enemy.GetComponent<Enemy>().Atk);
-            Enemy.GetComponent<Enemy>().Bad(Enemy.GetComponent<Player>().Atk);
-
-        }
+ 
     }
 
     public void stargame()
     {
-        born();
-    }
-    //private void Perfert()
-    //{
+        if (!ATKT)
+        {
+            ATKT = true;
+            InvokeRepeating("born", 0, bye);
 
-    // }
+        }
+    }
+
+    public void Egame()
+    {
+        if (Player.GetComponent<Player>().HP<=0)
+        {
+        CancelInvoke("born");
+            enabled = false;
+        }
+    }
 
     public void restgame()
     { SceneManager.LoadScene("遊戲場景"); }
@@ -197,4 +231,24 @@ public class Meau : MonoBehaviour
     {
         Application.Quit();
     }
+
+    private IEnumerator DelayPer()
+    {
+        Per.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        Per.SetActive(false);
+    }
+    private IEnumerator DelayGOOD()
+    {
+        GOOD.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        GOOD.SetActive(false);
+    }
+    private IEnumerator DelayBAD()
+    {
+        BAD.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        BAD.SetActive(false);
+    }
+
 }

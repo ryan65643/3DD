@@ -50,7 +50,7 @@ public class Prop : MonoBehaviour
         }
 
     }
-    public void Cal()
+    public float Cal()
     {
 
         // cc = Vector3.Distance(Ju.position, Judgmentarea.transform.position);
@@ -59,10 +59,10 @@ public class Prop : MonoBehaviour
         {
 
         cc = transform.position.x - Judgmentarea.transform.position.x;
-         print(cc);
+         //print(cc);
         }
-        
 
+        return cc;
     }
 }
 
