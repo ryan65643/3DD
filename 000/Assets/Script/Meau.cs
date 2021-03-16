@@ -12,6 +12,7 @@ public class Meau : MonoBehaviour
     public GameObject Judgmentarea;
     public Transform Ju;
     public GameObject[] Gam;
+    public GameObject CA;
     public Transform[] Gams;
     [Header("生成點")]
     public GameObject BronProp;
@@ -24,8 +25,7 @@ public class Meau : MonoBehaviour
     private float Speed = 10;
     private float cc;
     private bool StarGame =false;
-    private bool S =false;
-    private GameObject CA; 
+    private bool S =false; 
     private GameObject Player; 
     private GameObject Enemy; 
     // private bool ATKT;
@@ -51,9 +51,11 @@ public class Meau : MonoBehaviour
         CanMeau = GameObject.Find("介面層").GetComponent<CanvasGroup>();
         BronProp = GameObject.Find("生成區域");
         Gam = Resources.LoadAll<GameObject>("");
-        //CA = Resources.LoadAll<GameObject>("");
+        CA = Resources.Load<GameObject>("上");
         Gams = Resources.LoadAll<Transform>("");
         Enemy = GameObject.Find("Enemy");
+        Ju =Judgmentarea.GetComponent<Transform>();
+
 
 
     }
@@ -127,12 +129,12 @@ public class Meau : MonoBehaviour
         Transform point = BronProp.transform;
         Prop = Instantiate(Gam[r], point.position, point.rotation).gameObject;
         InvokeRepeating("born", 1, bye);
-        Ju = Prop.GetComponent<Transform>();
         
         S = true;
         if (S)
         {
-        //CA.GetComponent<Prop>().Cal();
+            CA.GetComponent<Prop>().Cal();
+            print(cc);
 
         }
 

@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackCD: 1.5
-  Atk: 99
+  Atk: 1
   HP: 150
   Exp: 30
 --- !u!1 &501133354

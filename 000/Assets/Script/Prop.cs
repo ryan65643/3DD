@@ -9,22 +9,24 @@ public class Prop : MonoBehaviour
     [Header("糟糕條的長度")]
     public float Length180 = -0.378f;
     private float Speed = 1;
-    private float cc;
-    public GameObject Judgmentarea;
+    public float cc;
+    public GameObject Meau;
+    public Transform Judgmentarea;
     private bool Born;
+    private bool S;
     private void Start()
     {
         Born = true;
     }
     private void Awake()
     {
-
+        Meau = GameObject.Find("場景控制器");
+        Judgmentarea = Meau.GetComponent<Meau>().Ju;
     }
     private void Update()
     {
-        Judgmentarea = GameObject.Find("判斷區域");
         move();
-
+        Cal();
     }
 
     private void OnDrawGizmos()
@@ -43,16 +45,22 @@ public class Prop : MonoBehaviour
     {
         if (Born)
         {
+            S = true;
             transform.Translate(Vector2.left * Time.deltaTime * Speed);
         }
 
     }
     public void Cal()
     {
-       
-            // cc = Vector3.Distance(Ju.position, Judgmentarea.transform.position);
-            cc = transform.position.x - Judgmentarea.transform.position.x;
-            print(cc);
+
+        // cc = Vector3.Distance(Ju.position, Judgmentarea.transform.position);
+
+        if (S)
+        {
+
+        cc = transform.position.x - Judgmentarea.transform.position.x;
+         print(cc);
+        }
         
 
     }
