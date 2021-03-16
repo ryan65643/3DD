@@ -487,6 +487,7 @@ MonoBehaviour:
   MAXEXPT: {fileID: 1081289396}
   LV: 1
   LVT: {fileID: 1502993611}
+  Atk: 20
   Talk: {fileID: 0}
   MeauDead: {fileID: 0}
   CanDead: {fileID: 0}
@@ -1112,7 +1113,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackCD: 1.5
   Atk: 99
-  hp: 1500
+  HP: 150
+  Exp: 30
 --- !u!1 &501133354
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,13 +1162,14 @@ MonoBehaviour:
   Skill: {fileID: 0}
   Mea: {fileID: 0}
   Judgmentarea: {fileID: 1643573128}
+  Ju: {fileID: 0}
   Gam: []
+  Gams: []
   BronProp: {fileID: 0}
   bye: 1
   CanSkill: {fileID: 0}
   CanBackpage: {fileID: 0}
   CanMeau: {fileID: 0}
-  CanDead: {fileID: 0}
   Prop: {fileID: 0}
 --- !u!1 &541737555
 GameObject:
@@ -1299,7 +1302,7 @@ GameObject:
   - component: {fileID: 617886134}
   - component: {fileID: 617886133}
   m_Layer: 5
-  m_Name: "\u6700\u5927\u9B54\u529B\u503C "
+  m_Name: "\u6700\u5927\u9B54\u529B\u503C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3468,7 +3471,7 @@ GameObject:
   - component: {fileID: 1608407454}
   - component: {fileID: 1608407453}
   m_Layer: 5
-  m_Name: "\u9B54\u529B\u503C "
+  m_Name: "\u9B54\u529B\u503C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

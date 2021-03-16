@@ -9,14 +9,22 @@ public class Prop : MonoBehaviour
     [Header("糟糕條的長度")]
     public float Length180 = -0.378f;
     private float Speed = 1;
+    private float cc;
+    public GameObject Judgmentarea;
     private bool Born;
     private void Start()
     {
         Born = true;
     }
+    private void Awake()
+    {
+
+    }
     private void Update()
     {
+        Judgmentarea = GameObject.Find("判斷區域");
         move();
+
     }
 
     private void OnDrawGizmos()
@@ -39,6 +47,14 @@ public class Prop : MonoBehaviour
         }
 
     }
+    public void Cal()
+    {
+       
+            // cc = Vector3.Distance(Ju.position, Judgmentarea.transform.position);
+            cc = transform.position.x - Judgmentarea.transform.position.x;
+            print(cc);
+        
 
+    }
 }
 

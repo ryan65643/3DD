@@ -10,6 +10,7 @@ public class Meau : MonoBehaviour
     public GameObject Skill;
     public GameObject Mea;
     public GameObject Judgmentarea;
+    public Transform Ju;
     public GameObject[] Gam;
     public Transform[] Gams;
     [Header("生成點")]
@@ -23,22 +24,25 @@ public class Meau : MonoBehaviour
     private float Speed = 10;
     private float cc;
     private bool StarGame =false;
+    private bool S =false;
+    private GameObject CA; 
+    private GameObject Player; 
+    private GameObject Enemy; 
     // private bool ATKT;
 
     private void Start()
     {
-        // ATKT = true;
-        Judgmentarea.SetActive(false);
+        Judgmentarea.SetActive(false); 
     }
     private void Update()
     {
-        a();
         OpenCkeck();
-
+        
     }
     private void Awake()
     {
         Judgmentarea = GameObject.Find("判斷區域");
+        Player = GameObject.Find("Piayer");
         Skill = GameObject.Find("技能層");
         Backpage = GameObject.Find("背包層");
         Mea = GameObject.Find("介面層");
@@ -47,7 +51,9 @@ public class Meau : MonoBehaviour
         CanMeau = GameObject.Find("介面層").GetComponent<CanvasGroup>();
         BronProp = GameObject.Find("生成區域");
         Gam = Resources.LoadAll<GameObject>("");
+        //CA = Resources.LoadAll<GameObject>("");
         Gams = Resources.LoadAll<Transform>("");
+        Enemy = GameObject.Find("Enemy");
 
 
     }
@@ -112,25 +118,36 @@ public class Meau : MonoBehaviour
     /// </summary>
     private void born()
     {
+        Player.GetComponent<Player>().Perfect(Enemy.GetComponent<Enemy>().Atk);
+        Player.GetComponent<Player>().GetLv(Enemy.GetComponent<Enemy>().Exp);
+
+        //  Enemy.GetComponent<Enemy>().Good(Enemy.GetComponent<Player>().Atk);
         bye = Random.Range(1f, 5000f);
         int r = Random.Range(0, Gam.Length);
         Transform point = BronProp.transform;
         Prop = Instantiate(Gam[r], point.position, point.rotation).gameObject;
         InvokeRepeating("born", 1, bye);
-        //cc = Gams.transform.position.x - Judgmentarea.transform.position.x;
-        cc = Vector3.Distance(Prop.transform.position, BronProp.transform.position);
-        print(cc);
+        Ju = Prop.GetComponent<Transform>();
+        
+        S = true;
+        if (S)
+        {
+        //CA.GetComponent<Prop>().Cal();
+
+        }
 
        
 
     }
 
- 
+
+
+
     private void OpenCkeck()
     {
 
 
-        if (Input.GetKeyDown(KeyCode.DownArrow)&&cc<=1)
+        if (Input.GetKeyDown(KeyCode.DownArrow))
         {
         print("goo");
             Judgmentarea.SetActive(true);
@@ -143,16 +160,22 @@ public class Meau : MonoBehaviour
     {
         if (cc == 0)
         {
-            print("Perfect");
+            Player.GetComponent<Player>().Perfect(Enemy.GetComponent<Enemy>().Atk);
+            Enemy.GetComponent<Enemy>().Perfect(Enemy.GetComponent<Player>().Atk);
+
 
         }
         else if (cc <= 1 && cc != 0)
         {
-            print("GOOD");
+            Player.GetComponent<Player>().Good(Enemy.GetComponent<Enemy>().Atk);
+            Enemy.GetComponent<Enemy>().Good(Enemy.GetComponent<Player>().Atk);
+
         }
         else if (cc < -0.5f && cc != 0)
         {
-            print("BAD");
+            Player.GetComponent<Player>().Bad(Enemy.GetComponent<Enemy>().Atk);
+            Enemy.GetComponent<Enemy>().Bad(Enemy.GetComponent<Player>().Atk);
+
         }
     }
 
