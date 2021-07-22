@@ -65,9 +65,9 @@ public class Meau : MonoBehaviour
         CanBackpage = GameObject.Find("背包層").GetComponent<CanvasGroup>();
         CanMeau = GameObject.Find("介面層").GetComponent<CanvasGroup>();
         BronProp = GameObject.Find("生成區域");
-        Gam = Resources.LoadAll<GameObject>("");
-        CA = Resources.Load<GameObject>("上");
-        Gams = Resources.LoadAll<Transform>("");
+        Gam = Resources.LoadAll<GameObject>("Prop");
+        CA = Resources.Load<GameObject>("Prop/上");
+        Gams = Resources.LoadAll<Transform>("Prop");
         Enemy = GameObject.Find("Enemy");
         Ju = Judgmentarea.GetComponent<Transform>();
         Per = GameObject.Find("Perfect");
