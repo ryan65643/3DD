@@ -6,11 +6,13 @@ public class Player : MonoBehaviour
 {
     [Header("生命"), Range(0, 999)]
     public float HP = 100;
+    [Header("最大生命"), Range(0, 999)]
     public float Hpmax = 100;
     public Text HPT;
     public Text MAXHPT;
     [Header("魔力"), Range(0, 999)]
     public float MP = 100;
+    [Header("最大魔力"), Range(0, 999)]
     public float Mpmax = 100;
     public Text MPT;
     public Text MAXMPT;
@@ -48,7 +50,7 @@ public class Player : MonoBehaviour
         Meau = GameObject.Find("場景控制器");
         CanDead = GameObject.Find("結束畫面").GetComponent<CanvasGroup>();
         Talk = GameObject.Find("對話框");
-        LVT.text = LV.ToString("LV: "+LV);
+        LVT.text = LV.ToString("LV: " + LV);
         BronPropD = GameObject.Find("判斷區域底層");
 
         HP = Hpmax;
@@ -66,7 +68,7 @@ public class Player : MonoBehaviour
     /// <param name="Damge"></param>
     public void Perfect(float GetDamge)
     {
-        HP -= GetDamge*0.5f;
+        HP -= GetDamge * 0.5f;
         HP = (int)HP;
         HPT.text = HP.ToString();
         if (HP <= 0) dead();
@@ -86,7 +88,7 @@ public class Player : MonoBehaviour
     public void Bad(float GetDamge)
     {
 
-        HP -= GetDamge*2;
+        HP -= GetDamge * 2;
         HPT.text = HP.ToString();
         if (HP <= 0) dead();
 
@@ -106,9 +108,9 @@ public class Player : MonoBehaviour
     public void GetLv(int Exp)
     {
         EXP += Exp;
-        if (EXP>=100)
+        if (EXP >= 100)
         {
-            EXP = EXP-100;
+            EXP = EXP - 100;
             EXPT.text = EXP.ToString();
             LV += 1;
             LVT.text = LV.ToString("LV: " + LV);
@@ -119,9 +121,9 @@ public class Player : MonoBehaviour
     public void exit()
     {
         StartCoroutine(DelayTalk());
-        HP -= HP*0.2f;
+        HP -= HP * 0.2f;
         HP = (int)HP;
-        HP = Mathf.Clamp(HP,1, 100);
+        HP = Mathf.Clamp(HP, 1, 100);
         HPT.text = HP.ToString();
         if (HP <= 0) dead();
     }
@@ -134,5 +136,27 @@ public class Player : MonoBehaviour
         Talk.SetActive(false);
         BronPropD.SetActive(true);
     }
+    /// <summary>
+    /// 恢復血量
+    /// </summary>
+    public void HealthHP()
+    {
+        if (HP >= 0 && HP <= Hpmax)
+        {
+            HP = HP + 20;
+        }
+        else HP = Hpmax;
+    }
 
+    /// <summary>
+    /// 恢復魔力
+    /// </summary>
+    public void HealthMP()
+    {
+        if (MP >= 0 && MP <= Mpmax)
+        {
+            MP = MP + 15;
+        }
+        else MP = Mpmax;
+    }
 }

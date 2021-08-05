@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
     {
         HP -= GetDamge * 0.5f;
         if (HP <= 0) dead();
-
+        Destroy(this);
     }
 
     private void dead()
