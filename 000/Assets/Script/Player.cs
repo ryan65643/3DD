@@ -28,14 +28,22 @@ public class Player : MonoBehaviour
     public float Atk = 15;
     public GameObject Talk;
     public GameObject MeauDead;
-    public GameObject Meau;
+    public GameObject Meaus;
     public CanvasGroup CanDead;
     public GameObject BronPropD;
+    public Text RedPotionCount;
+    public Text BluePotionCount;
+    public int RedCounts;
+    public int BlueCounts;
+    public GameObject PotionNews;
+
 
     private void Start()
     {
         Talk.SetActive(false);
         MeauDead.SetActive(false);
+
+
     }
 
     private void Awake()
@@ -47,21 +55,34 @@ public class Player : MonoBehaviour
         EXPT = GameObject.Find("經驗值").GetComponent<Text>();
         LVT = GameObject.Find("等級").GetComponent<Text>();
         MeauDead = GameObject.Find("結束畫面");
-        Meau = GameObject.Find("場景控制器");
+        Meaus = GameObject.Find("場景控制器");
         CanDead = GameObject.Find("結束畫面").GetComponent<CanvasGroup>();
         Talk = GameObject.Find("對話框");
         LVT.text = LV.ToString("LV: " + LV);
         BronPropD = GameObject.Find("判斷區域底層");
-
+        PotionNews = GameObject.Find("場景控制器");
+        //RedCounts = GameObject.Find("場景控制器").GetComponent<Meau>().RedCount;
+        RedCounts = BornEnemy.RedCount;
+        BlueCounts = BornEnemy.BlueCount;
+        RedPotionCount = GameObject.Find("紅藥水/紅藥水").GetComponent<Text>();
+        BluePotionCount = GameObject.Find("藍藥水/藍藥水").GetComponent<Text>();
         HP = Hpmax;
         MP = Mpmax;
 
     }
     private void Update()
     {
-
+        SS();
+        RedPotionCount.text = " 紅藥水     X" + BornEnemy.RedCount;
+        BluePotionCount.text = " 藍藥水     X" + BornEnemy.BlueCount;
     }
 
+
+    private void SS()
+    {
+        print(BornEnemy.RedCount);
+        print(RedCounts);
+    }
     /// <summary>
     /// 受傷
     /// </summary>
@@ -141,11 +162,19 @@ public class Player : MonoBehaviour
     /// </summary>
     public void HealthHP()
     {
-        if (HP >= 0 && HP <= Hpmax)
+        if (HP >= 0 && HP <= Hpmax && BornEnemy.RedCount > 0)
         {
             HP = HP + 20;
+            HPT.text = HP.ToString();
+            BornEnemy.RedCount = BornEnemy.RedCount - 1;
+            RedPotionCount.text = " 紅藥水     X" + BornEnemy.RedCount;
         }
-        else HP = Hpmax;
+        else if(HP == Hpmax&& BornEnemy.RedCount > 0)
+        {
+            HP = Hpmax;
+            HPT.text = HP.ToString();
+            BornEnemy.RedCount = BornEnemy.RedCount - 1;
+        }
     }
 
     /// <summary>
@@ -153,10 +182,19 @@ public class Player : MonoBehaviour
     /// </summary>
     public void HealthMP()
     {
-        if (MP >= 0 && MP <= Mpmax)
+        if (MP >= 0 && MP <= Mpmax && BornEnemy.BlueCount > 0)
         {
             MP = MP + 15;
+            MPT.text = MP.ToString();
+            BornEnemy.BlueCount = BornEnemy.BlueCount - 1;
+            BluePotionCount.text = " 藍藥水     X" + BornEnemy.BlueCount;
         }
-        else MP = Mpmax;
+        else if (MP == Mpmax && BornEnemy.BlueCount > 0)
+        {
+            MP = Mpmax;
+            MPT.text = MP.ToString();
+            BornEnemy.BlueCount = BornEnemy.BlueCount - 1;
+        }
+
     }
 }

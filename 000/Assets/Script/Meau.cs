@@ -38,6 +38,7 @@ public class Meau : MonoBehaviour
     public GameObject BAD;
     public List<GameObject> Arrows;
 
+
     private void Start()
     {
         Judgmentarea.SetActive(false);
@@ -53,6 +54,7 @@ public class Meau : MonoBehaviour
         CAl();
         Egame();
     }
+
     private void Awake()
     {
         Judgmentarea = GameObject.Find("判斷區域");

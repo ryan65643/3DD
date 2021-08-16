@@ -19,7 +19,14 @@ public class BornEnemy : MonoBehaviour
     public List<GameObject> EL;
     public int b;
     public int Count;
-
+    public GameObject RedPotion;
+    public GameObject BluePotion;
+    public Text RedPotionCount;
+    public Text BluePotionCount;
+    [Header("紅藥水數量"), Range(0, 99)]
+    public static int RedCount;
+    [Header("藍藥水數量"), Range(0, 99)]
+    public static int BlueCount;
 
 
     private void Awake()
@@ -35,6 +42,12 @@ public class BornEnemy : MonoBehaviour
         Boss = Resources.Load<GameObject>("BOSS/BOSS_1");
         b = Random.Range(0, Enemy.Length);
         Count = 0;
+        RedPotion = Resources.Load<GameObject>("Potion/Red Potion");
+        BluePotion = Resources.Load<GameObject>("Potion/blue Potion");
+        RedPotionCount = GameObject.Find("紅藥水/紅藥水").GetComponent<Text>();
+        BluePotionCount = GameObject.Find("藍藥水/藍藥水").GetComponent<Text>();
+        RedCount = 1;
+        BlueCount = 1;
     }
 
     private void Start()
@@ -50,24 +63,34 @@ public class BornEnemy : MonoBehaviour
     /// </summary>
     public void BORNENEMY()
     {
-        float a = Random.Range(0, 2);
-        if (a == 0 && Count < 5)
+        float a = Random.Range(0, 5);
+        if (a == 0 && Count < 7)
         {
             StartCoroutine(MoveA());
             Count = Count + 1;
         }
-        if (a == 1 && Count < 5)
+        if (a == 1 && Count < 7)
         {
             StartCoroutine(MoveB());
             Count = Count + 1;
             print(Count);
         }
-        if (a == 2 && Count < 5)
+        if (a == 2 && Count < 7)
         {
             StartCoroutine(MoveC());
             Count = Count + 1;
         }
-        if (a >0 && Count >= 5)
+        if (a == 3 && Count < 7)
+        {
+            StartCoroutine(BRPotion());
+            Count = Count + 1;
+        }
+        if (a == 4 && Count < 7)
+        {
+            StartCoroutine(BBPotion());
+            Count = Count + 1;
+        }
+        if (a > 0 && Count >= 7)
         {
             StartCoroutine(BOSS());
             Count = 0;
@@ -89,10 +112,10 @@ public class BornEnemy : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
             Scenes.transform.position = new Vector2(0, 0);
         }
-            Instantiate(Enemy[b], bornA_1.transform);
-            Instantiate(Enemy[b], bornA_2.transform);
-            Instantiate(Enemy[b], bornA_3.transform);
-            print("A");
+        Instantiate(Enemy[b], bornA_1.transform);
+        Instantiate(Enemy[b], bornA_2.transform);
+        Instantiate(Enemy[b], bornA_3.transform);
+        print("A");
     }
     private IEnumerator MoveB()
     {
@@ -108,8 +131,8 @@ public class BornEnemy : MonoBehaviour
             Scenes.transform.position = new Vector2(0, 0);
 
         }
-            Instantiate(Enemy[b], bornB.transform);
-            print("B");
+        Instantiate(Enemy[b], bornB.transform);
+        print("B");
     }
     private IEnumerator MoveC()
     {
@@ -125,10 +148,10 @@ public class BornEnemy : MonoBehaviour
             Scenes.transform.position = new Vector2(0, 0);
 
         }
-            Instantiate(Enemy[b], bornC_1.transform);
-            Instantiate(Enemy[b], bornC_2.transform);
-            print("C");
-    }   
+        Instantiate(Enemy[b], bornC_1.transform);
+        Instantiate(Enemy[b], bornC_2.transform);
+        print("C");
+    }
     private IEnumerator BOSS()
     {
         for (int i = 0; i < 2; i++)
@@ -145,6 +168,46 @@ public class BornEnemy : MonoBehaviour
             print("BOSS");
         }
         Instantiate(Boss, bornB.transform);
+    }
+
+    private IEnumerator BRPotion()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            yield return new WaitForSeconds(0.01f);
+            Scenes.transform.position = new Vector2(0, 0.22f);
+            yield return new WaitForSeconds(0.01f);
+            Scenes.transform.position = new Vector2(0, 0);
+            yield return new WaitForSeconds(0.01f);
+            Scenes.transform.position = new Vector2(0, -0.22f);
+            yield return new WaitForSeconds(0.01f);
+            Scenes.transform.position = new Vector2(0, 0);
+            //yield return new WaitForSeconds(3f);
+            //Destroy(this);
+        }
+        Instantiate(RedPotion, bornB.transform);
+        RedCount = RedCount + 1;
+        print("D");
+    }
+
+    private IEnumerator BBPotion()
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            yield return new WaitForSeconds(0.01f);
+            Scenes.transform.position = new Vector2(0, 0.22f);
+            yield return new WaitForSeconds(0.01f);
+            Scenes.transform.position = new Vector2(0, 0);
+            yield return new WaitForSeconds(0.01f);
+            Scenes.transform.position = new Vector2(0, -0.22f);
+            yield return new WaitForSeconds(0.01f);
+            Scenes.transform.position = new Vector2(0, 0);
+            //yield return new WaitForSeconds(3f);
+            //Destroy(this);
+        }
+        Instantiate(BluePotion, bornB.transform);
+        BlueCount = BlueCount + 1;
+        print("E");
     }
 }
 
