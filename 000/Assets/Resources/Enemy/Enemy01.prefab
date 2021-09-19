@@ -1196,7 +1196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53660d9eb4240484a8589b263aeb2944, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AttackCD: 1.5
+  AttackCD: 353
   Atk: 1
   HP: 150
   Exp: 30

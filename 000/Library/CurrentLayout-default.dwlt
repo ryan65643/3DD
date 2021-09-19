@@ -96,7 +96,7 @@ MonoBehaviour:
   m_MinSize: {x: 911, y: 442}
   m_MaxSize: {x: 22006, y: 10021}
   vertical: 0
-  controlID: 34
+  controlID: 148
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 442}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 35
+  controlID: 59
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -302,20 +302,20 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 6cfaffff70faffff6afbffff7e340000
+      m_SelectedIDs: 34390000
+      m_LastClickedID: 14644
+      m_ExpandedIDs: 66f6ffff5437000066370000a4380000b6390000ba390000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: "\u7D50\u675F\u756B\u9762"
-        m_OriginalName: "\u7D50\u675F\u756B\u9762"
+        m_Name: Enemy01(Clone)
+        m_OriginalName: Enemy01(Clone)
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 13448
+        m_UserData: -7942
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
         m_OriginalEventType: 0
@@ -411,14 +411,14 @@ MonoBehaviour:
   m_LastFolders:
   - Assets/Script
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\Owner\Desktop\3DD\000
+  m_LastProjectPath: C:\Users\Appedu\Desktop\3DD\000
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 44360000
-    m_LastClickedID: 13892
-    m_ExpandedIDs: 00000000203600002236000024360000263600002836000000ca9a3b
+    m_SelectedIDs: 503a0000
+    m_LastClickedID: 14928
+    m_ExpandedIDs: 000000002a3a00002c3a00002e3a0000303a0000323a00004c3a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -446,7 +446,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000002036000022360000243600002636000028360000
+    m_ExpandedIDs: 000000002a3a00002c3a00002e3a0000303a0000323a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -632,7 +632,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 0.023849487, y: -0.001953125, z: 90}
     speed: 2
-    m_Value: {x: 0.02387199, y: -0.001940459, z: 90}
+    m_Value: {x: 0.023849487, y: -0.001953125, z: 90}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -684,7 +684,7 @@ MonoBehaviour:
   m_Size:
     m_Target: 10.218344
     speed: 2
-    m_Value: 10.2183695
+    m_Value: 10.218344
   m_Ortho:
     m_Target: 1
     speed: 2

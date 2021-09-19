@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
     {
         Talk.SetActive(false);
         MeauDead.SetActive(false);
+        HPT.text = HP.ToString();
+        MPT.text = MP.ToString();
 
 
     }
@@ -162,7 +164,7 @@ public class Player : MonoBehaviour
     /// </summary>
     public void HealthHP()
     {
-        if (HP >= 0 && HP <= Hpmax && BornEnemy.RedCount > 0)
+        if (HP >= 0 && HP < Hpmax && BornEnemy.RedCount > 0)
         {
             HP = HP + 20;
             HPT.text = HP.ToString();
@@ -182,7 +184,7 @@ public class Player : MonoBehaviour
     /// </summary>
     public void HealthMP()
     {
-        if (MP >= 0 && MP <= Mpmax && BornEnemy.BlueCount > 0)
+        if (MP >= 0 && MP < Mpmax && BornEnemy.BlueCount > 0)
         {
             MP = MP + 15;
             MPT.text = MP.ToString();
